@@ -1,10 +1,12 @@
 package com.example.akomunote;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -111,6 +115,18 @@ public class HomeFragment extends Fragment {
                 databaseReference.child(noteKey).removeValue();
                 notes.remove(position);
                 notesAdapter.notifyItemRemoved(position);
+            }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(getActivity(), R.color.gray))
+                        .addCornerRadius(0, 10)
+                        .addActionIcon(R.drawable.ic_baseline_delete_24)
+                        .setActionIconTint(ContextCompat.getColor(getActivity(), R.color.white))
+                        .create()
+                        .decorate();
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         }).attachToRecyclerView(recyclerView);
 
