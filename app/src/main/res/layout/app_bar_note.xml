@@ -24,7 +24,27 @@
     </com.google.android.material.appbar.AppBarLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
         <include layout="@layout/content_create_note"/>
     </ScrollView>
+    <RelativeLayout
+        android:id="@+id/createNoteBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/off_white"
+        android:orientation="horizontal"
+        android:padding="14dp"
+        android:gravity="right"
+        >
+
+        <ImageView
+            android:id="@+id/getImage"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginRight="8dp"
+            app:srcCompat="@drawable/ic_baseline_camera_alt_24"
+            app:tint="@color/black" />
+    </RelativeLayout>
 </LinearLayout>
